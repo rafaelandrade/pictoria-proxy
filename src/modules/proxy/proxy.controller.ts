@@ -37,9 +37,11 @@ export class ProxyController {
     }
 
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, { responseType: 'stream' });
+
       res.set('Content-Type', response.headers['content-type']);
-      res.send(response.data);
+      res.set('Content-Length', response.headers['content-length']);
+      response.data.pipe(res);
     } catch (error: any) {
       this.logger.error('[PROXY - GET IMAGE] Failed in Get image');
       throw new HttpException(
