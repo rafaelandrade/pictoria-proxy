@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   setMiddlewares(app);
-  await app.listen(3001);
+  await app.listen(8080);
 }
 
 bootstrap();
